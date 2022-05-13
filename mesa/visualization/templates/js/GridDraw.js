@@ -147,7 +147,9 @@ const GridVisualization = function (
     stroke_color,
     fill,
     text,
-    text_color
+    text_color,
+    x_offset,
+    y_offset
   ) {
     const cx = (x + 0.5) * cellWidth;
     const cy = (y + 0.5) * cellHeight;
