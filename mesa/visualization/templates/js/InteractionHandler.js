@@ -40,12 +40,13 @@ var InteractionHandler = function(width, height, gridWidth, gridHeight, ctx){
 		'y',
     'w',
     'h',
-		'width',
-		'height',
+    'width',
+    'height',
     'heading_x',
     'heading_y',
-		'stroke_color',
-    'text_color'
+    'stroke_color',
+    'text_color',
+    'ignoredFeatures'
 	];
 
   // Set a variable to hold the lookup table and make it accessible to draw scripts
@@ -129,7 +130,8 @@ var InteractionHandler = function(width, height, gridWidth, gridHeight, ctx){
         // look up the portrayal items the coordinates refer to and draw a tooltip
         mouseoverLookupTable.get(position.x, position.y).forEach((portrayalIndex, nthAgent) => {
             const agent = portrayalLayer[portrayalIndex];
-  					const features = Object.keys(agent).filter(k => ignoredFeatures.indexOf(k) < 0);
+            const agentIngoredFeatures = agent.ignoredFeatures ? ignoredFeatures.concat(agent.ignoredFeatures) : ignoredFeatures;
+  					const features = Object.keys(agent).filter(k => agentIngoredFeatures.indexOf(k) < 0);
             const textWidth = Math.max.apply(null, features.map(k => ctx.measureText(`${k}: ${agent[k]}`).width));
   					const textHeight = features.length * lineHeight;
   					const y = Math.max(lineHeight * 2, Math.min(height - textHeight, event.offsetY - textHeight/2));

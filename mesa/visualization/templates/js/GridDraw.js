@@ -76,7 +76,7 @@ var GridVisualization = function(width, height, gridWidth, gridHeight, context, 
                         if (p.Shape == "rect")
                                 this.drawRectangle(p.x, p.y, p.w, p.h, p.Color, p.stroke_color, p.Filled, p.text, p.text_color);
                         else if (p.Shape == "circle")
-                                this.drawCircle(p.x, p.y, p.r, p.Color, p.stroke_color, p.Filled, p.text, p.text_color);
+                                this.drawCircle(p.x, p.y, p.r, p.Color, p.stroke_color, p.Filled, p.text, p.text_color, p.x_offset, p.y_offset);
                         else if (p.Shape == "arrowHead")
                                 this.drawArrowHead(p.x, p.y, p.heading_x, p.heading_y, p.scale, p.Color, p.stroke_color, p.Filled, p.text, p.text_color);
                         else
@@ -99,10 +99,18 @@ var GridVisualization = function(width, height, gridWidth, gridHeight, context, 
         text: Inscribed text in rectangle.
         text_color: Color of the inscribed text.
         */
-        this.drawCircle = function(x, y, radius, colors, stroke_color, fill, text, text_color) {
-                var cx = (x + 0.5) * cellWidth;
-                var cy = (y + 0.5) * cellHeight;
+        this.drawCircle = function(x, y, radius, colors, stroke_color, fill, text, text_color, x_offset, y_offset) {
+                let cx = (x + 0.5) * cellWidth;
+                let cy = (y + 0.5) * cellHeight;
                 var r = radius * maxR;
+
+                if(x_offset) {
+                        cx += (x_offset * cellWidth);
+                }
+
+                if(y_offset) {
+                        cy += (y_offset * cellWidth);
+                }
 
                 context.beginPath();
                 context.arc(cx, cy, r, 0, Math.PI * 2, false);
