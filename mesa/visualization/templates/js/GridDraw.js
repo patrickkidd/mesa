@@ -100,7 +100,9 @@ const GridVisualization = function (
           p.stroke_color,
           p.Filled,
           p.text,
-          p.text_color
+          p.text_color,
+          p.x_offset,
+          p.y_offset
         );
       else if (p.Shape == "arrowHead")
         this.drawArrowHead(
@@ -150,6 +152,14 @@ const GridVisualization = function (
     const cx = (x + 0.5) * cellWidth;
     const cy = (y + 0.5) * cellHeight;
     const r = radius * maxR;
+
+    if(x_offset) {
+      cx += (x_offset * cellWidth);
+    }
+
+    if(y_offset) {
+      cy += (y_offset * cellWidth);
+    }
 
     context.beginPath();
     context.arc(cx, cy, r, 0, Math.PI * 2, false);

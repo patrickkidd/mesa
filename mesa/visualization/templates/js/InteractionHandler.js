@@ -30,22 +30,23 @@ const InteractionHandler = function (width, height, gridWidth, gridHeight, ctx) 
 
   // list of standard rendering features to ignore (and key-values in the portrayal will be added )
   const ignoredFeatures = [
-    "Shape",
-    "Filled",
-    "Color",
-    "r",
-    "x",
-    "y",
-    "w",
-    "h",
-    "width",
-    "height",
-    "heading_x",
-    "heading_y",
-    "stroke_color",
-    "text_color",
-  ];
-
+		'Shape',
+		'Filled',
+		'Color',
+		'r',
+		'x',
+		'y',
+    'w',
+    'h',
+    'width',
+    'height',
+    'heading_x',
+    'heading_y',
+    'stroke_color',
+    'text_color',
+    'ignoredFeatures'
+	];
+  
   // Set a variable to hold the lookup table and make it accessible to draw scripts
   const mouseoverLookupTable = (this.mouseoverLookupTable = buildLookupTable(
     gridWidth,
@@ -131,8 +132,9 @@ const InteractionHandler = function (width, height, gridWidth, gridHeight, ctx) 
         .get(position.x, position.y)
         .forEach((portrayalIndex, nthAgent) => {
           const agent = portrayalLayer[portrayalIndex];
+          const agentIngoredFeatures = agent.ignoredFeatures ? ignoredFeatures.concat(agent.ignoredFeatures) : ignoredFeatures;
           const features = Object.keys(agent).filter(
-            (k) => ignoredFeatures.indexOf(k) < 0
+            (k) => agentIngoredFeatures.indexOf(k) < 0
           );
           const textWidth = Math.max.apply(
             null,
