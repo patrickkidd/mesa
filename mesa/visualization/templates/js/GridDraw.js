@@ -151,8 +151,8 @@ const GridVisualization = function (
     x_offset,
     y_offset
   ) {
-    const cx = (x + 0.5) * cellWidth;
-    const cy = (y + 0.5) * cellHeight;
+    let cx = (x + 0.5) * cellWidth;
+    let cy = (y + 0.5) * cellHeight;
     const r = radius * maxR;
 
     if(x_offset) {
